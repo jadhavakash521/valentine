@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Saraswati ❤️</title>
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(#ff9a9e, #fad0c4);
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 3s ease;
+}
+
+/* Sparkling gradient when accepted */
+body.celebration {
+  background: linear-gradient(270deg, #ffdde1, #ee9ca7, #fad0c4, #fbc2eb, #a6c1ee);
+  background-size: 1000% 1000%;
+  animation: sparkle 10s ease infinite;
+}
+
+@keyframes sparkle {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  text-align: center;
+  z-index: 2;
+}
+
+h1 {
+  color: #c9184a;
+  font-size: 36px;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  position: absolute;
+  background: white;
+  transition: left 0.3s ease, top 0.3s ease;
+}
+
+#message {
+  display: none;
+  font-size: 28px;
+  color: red;
+}
+
+/* Toggle classes */
+.hidden {
+  display: none !important;
+}
+
+.accepted #message {
+  display: block;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  color: red;
+  animation: float 5s linear forwards;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Fireworks */
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: yellow;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(3); opacity: 0; }
+}
+
+/* Stars */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+/* Please Say Yes Text */
+#please {
+  position: absolute;
+  font-size: 20px;
+  color: #c9184a;
+  font-weight: bold;
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Hidden guitar music -->
+<audio autoplay loop style="display:none;">
+  <source src=""D:\jeene_laga_hoon_female.mp3"" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h1 id="question">Saraswati ❤️<br>Will you be my Valentine?</h1>
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+  <p id="message">Yay Saraswati!!! 💖<br>I Love You Forever 😍<br>Happy Valentine’s Day 🌹</p>
+</div>
+
+<p id="please">Please say yes ❤️</p>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const yesBtn = document.getElementById("yes");
+  const noBtn = document.getElementById("no");
+  const container = document.querySelector(".container");
+  const question = document.getElementById("question");
+  const pleaseText = document.getElementById("please");
+
+  // Handle "Yes" click
+  yesBtn.addEventListener("click", () => {
+    container.classList.add("accepted");
+    yesBtn.classList.add("hidden");
+    noBtn.classList.add("hidden");
+    question.classList.add("hidden");
+    document.body.classList.add("celebration");
+    launchFireworks();
+    createStars();
+  });
+
+  // Handle "No" hover (move button + show text aligned with button)
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+
+    // Align "Please say yes" near the No button
+    pleaseText.style.left = `${x + noBtn.offsetWidth + 10}px`;
+    pleaseText.style.top = `${y}px`;
+    pleaseText.style.display = "block";
+
+    setTimeout(() => { pleaseText.style.display = "none"; }, 1500);
+  });
+
+  // Floating hearts animation
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 300);
+
+  // Fireworks effect
+  function launchFireworks() {
+    for (let i = 0; i < 30; i++) {
+      const firework = document.createElement("div");
+      firework.className = "firework";
+      firework.style.left = Math.random() * window.innerWidth + "px";
+      firework.style.top = Math.random() * window.innerHeight + "px";
+      firework.style.background = randomColor();
+      document.body.appendChild(firework);
+      setTimeout(() => firework.remove(), 1000);
+    }
+  }
+
+  function randomColor() {
+    const colors = ["red", "yellow", "blue", "green", "purple", "orange", "pink"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  // Stars background
+  function createStars() {
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * window.innerWidth + "px";
+      star.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(star);
+    }
+  }
+});
+</script>
+</body>
+</html>
